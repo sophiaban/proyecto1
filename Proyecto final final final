@@ -1,0 +1,230 @@
+#include <iostream>
+#include <stdio.h>
+#include <sstream>
+#include <fstream>
+#include <ctype.h>
+
+
+
+using namespace std;
+struct agendar {
+    char nom[50];
+    char trat[50];
+    char des[50];
+    char correo[100];
+    float precio;
+    float horario;
+    float cantidad;
+    int numerodecita;
+};
+
+agendar cita[100];
+
+
+int main(){
+int a , o, m, b, cb, total, iva; 
+    int checar = 0, i = 0, space;
+    int mod; 
+    char ch = cita[mod - 1].correo[0];
+    menu:
+    cout << "1- Agendar cita \n";
+		cout << "2- Modificar cita \n";
+		cout << "3- Ver cita vigentes \n";
+		cout << "4- Limpiar pantalla \n";
+		cout << "5- Eliminar cita \n\n";
+		cout << "6- Salir \n\n";
+		cin >> a;
+
+    switch (a) {
+        case 1:
+            
+               while (checar == 0){
+                    
+                    
+                    cita[i].numerodecita = i + 1;
+                    cout << "Agendar cita " << endl;
+                    cout << endl;
+
+                    cout << "su número de cita es: " << cita[i].numerodecita << endl;
+                    
+                    cout << "Favor de ingresar su nombre" << endl;
+                    cin.getline(cita[i].nom, 50);
+				    cin.getline(cita[i].nom, 50);
+
+                    cout << "Nombre del tratamiento" << endl;
+                    cin.getline(cita[i].trat, 50);
+                    
+                    cout << "descripción: " << endl;
+                    cin.getline(cita[i].des, 50);
+
+                    mail:
+                    cout<< "favor de ingresar su correo" << endl;
+                    cin.getline(cita[i].correo, 50);
+
+                    for (int k = 0; k <= 50 ; k++) {
+                        space = cita[i].correo[k];
+                        if (isspace(space)){
+                            cout<< "error, tiene un espacio"<< endl;
+                            goto mail;
+                        }
+                    
+                    }
+
+                    cout << "Favor de ingresar la hora de la cita en formato 0000" << endl ;
+                    cin >> cita[i].horario;
+
+                    costo:
+                    cout << "ingrese el precio unitario: " << endl;
+                    cin >> cita[i].precio;
+
+                    if (cita[i].precio > 9999){
+                        cout<< "error, debe ser menor a 5 digitos"<< endl;
+                        cita[i].precio = 0;
+                        goto costo;
+                    }  
+
+                    cout << "favor de ingresar la cantidad de tratamientos: " << endl;
+                    cin >> cita[i].cantidad;
+
+                    
+					i ++ ; 
+                    cout << "Desea agendar otra cita ?" << endl;
+                    cout << "1- Sí    2- No" << endl;
+                    cin >> b;
+                    switch (b){
+                        case 2:
+                            goto menu;
+                        break;
+
+                    }
+                }
+    
+            break;
+        case 2:
+            cout << "ingresa el número de cita a modificar: ";
+            cin  >> m;
+            
+                           
+            cita[m].numerodecita = m  ;
+            m = m - 1;
+                    cout << "Agendar cita " << endl;
+                    cout << endl;
+
+                    cout << "su número de cita es: " << cita[m].numerodecita << endl;
+                    
+                    cout << "Favor de ingresar su nombre" << endl;
+                    cin.getline(cita[m].nom, 50);
+				    cin.getline(cita[m].nom, 50);
+
+                    cout << "Nombre del tratamiento" << endl;
+                    cin.getline(cita[m].trat, 50);
+                    
+                    cout << "descripción: " << endl;
+                    cin.getline(cita[m].des, 50);
+
+                    email:
+                    cout<< "favor de ingresar su correo" << endl;
+                    
+                    
+                    cin.getline(cita[m].correo, 50);
+                    
+                    for (int k = 0; k <= 50 ; k++) {
+                        space = cita[m].correo[k];
+                        if (isspace(space)){
+                            cout<< "error, tiene un espacio"<< endl;
+                            goto email;
+                        }
+                    
+                    }
+
+                    cout << "Favor de ingresar la hora de la cita en formato 0000" << endl ;
+                    cin >> cita[m].horario;
+
+                    cout << "ingrese el precio unitario: " << endl;
+                    precio:
+                    cin >> cita[m].precio;
+                    if (cita[m].precio > 9999){
+                        cout<< "error, debe ser menor a 5 digitos"<< endl;
+                        cita[m].precio = 0;
+                        goto precio;
+                    } 
+                    cout << "favor de ingresar la cantidad de tratamientos: " << endl;
+                    cin >> cita[i].cantidad;
+ 
+                goto menu;  
+            break;
+
+        case 3:
+            
+            for (int j = 0; j < i; j++){
+                    if (cita[j].numerodecita > 0){
+                    cout << "Número de cita: " << cita[j].numerodecita << endl;
+                    cout << "Nombre del paciente: " << cita[j].nom << endl;
+                    cout << "Tratamiento: " << cita[j].trat << endl;
+                    cout << "Descripcción: " << cita[j].des << endl;
+                    cout << "correo: " << cita[j].correo << endl;
+                    cout << "Hora: " << cita[j].horario << "h" <<endl;
+                    cout<< "Subtotal: $" << (cita[j].precio * cita[j].cantidad) << endl;
+                    iva = ((cita[j].precio * cita[j].cantidad)) * .16;
+                    total = iva + (cita[j].precio * cita[j].cantidad);
+                    cout<< "El precio total es de: $" << total <<endl;
+                    cout << endl;
+                    }
+            }
+            if (cita[i].numerodecita == 0){
+                cout<< "no hay cita vigentes"<< endl;
+            }
+            goto menu;
+          
+            
+        break;
+            
+        case 4:
+
+            printf("\033c"); 
+                      
+            goto menu;
+            break;
+
+        case 5:
+            cout << " Ingrese el número de cita que desa borrar: " ;
+            cin >> cb; // Cita borrar
+    
+            cita[cb - 1].numerodecita = 0;
+			
+            goto menu;
+        break; 
+        case 6:
+        if (i > 0 ){
+          ofstream guardar("archivo.txt");
+                for (int k = 0; k < i + 1; k++){
+                    if (cita[k].numerodecita > 0 ){
+                        i --;
+                        guardar << "Id: " << cita[i].numerodecita << "\n";
+                        guardar << "Nombre del Paciente: " << cita[k].nom << "\n";
+                        guardar << "Nombre del Tratamiento: " << cita[k].trat << "\n";
+                        guardar << "Descripcion de la Cita: " << cita[k].des << "\n";
+                        guardar << "Horario de la Cita: " << cita[k].horario << "\n";
+                        cout<< "Subtotal: $" << (cita[k].precio * cita[k].cantidad) << endl;
+                        iva = ((cita[k].precio * cita[k].cantidad)) * .16;
+                        total = iva + (cita[k].precio * cita[k].cantidad);
+                        cout<< "El precio total es de: $" << total <<endl;
+                        guardar << "Precio Total: " << (cita[k].precio * cita[k].cantidad) << "\n";
+                    }
+                }
+            return 0;
+        }
+        if ( cita[i].numerodecita == 0){
+            cout << "no hay cita para guardar"<< endl;
+            goto menu;
+        }
+        break;
+
+    }
+
+    while(a != 6){
+        goto menu;
+    }
+
+    
+}
